@@ -37,3 +37,4 @@ public/.htaccess
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+db.mwb
