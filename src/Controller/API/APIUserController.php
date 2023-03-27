@@ -14,9 +14,9 @@ use App\Entity\ClientRelease;
 use App\Entity\Song;
 use App\Entity\SongReview;
 use App\Entity\SongPlaylist;
-use App\Entity\SongSpinPlay;
+//use App\Entity\SongSpinPlay;
 use App\Entity\User;
-use App\Entity\UserCard;
+//use App\Entity\UserCard;
 use App\Entity\Promo;
 
 class APIUserController extends AbstractController
@@ -42,18 +42,18 @@ class APIUserController extends AbstractController
             $resultsSongs = $em->getRepository(Song::class)->findBy(array('uploader' => $result->getId(), 'publicationStatus' => array(0, 1)), array('uploadDate' => 'DESC'));
             $resultsPlaylists = $em->getRepository(SongPlaylist::class)->findBy(array('user' => $result->getId()), array());
             $resultsReviews = $em->getRepository(SongReview::class)->findBy(array('user' => $result->getId()), array('reviewDate' => 'DESC'));
-            $resultsSpinPlays = $em->getRepository(SongSpinPlay::class)->findBy(array('user' => $result->getId(), 'isActive' => true), array('submitDate' => 'DESC'));
-            $resultsCards = $em->getRepository(UserCard::class)->findBy(array('user' => $result->getId()), array('givenDate' => 'DESC'));
+            //$resultsSpinPlays = $em->getRepository(SongSpinPlay::class)->findBy(array('user' => $result->getId(), 'isActive' => true), array('submitDate' => 'DESC'));
+            //$resultsCards = $em->getRepository(UserCard::class)->findBy(array('user' => $result->getId()), array('givenDate' => 'DESC'));
 
             $data['songs'] = count($resultsSongs);
             $data['playlists'] = count($resultsPlaylists);
             $data['reviews'] = count($resultsReviews);
-            $data['spinplays'] = count($resultsSpinPlays);
-            $data['cards'] = [];
+           // $data['spinplays'] = count($resultsSpinPlays);
+           // $data['cards'] = [];
                  
-            foreach($resultsCards as $result) {
-                $data['cards'][] = $result->getJSON();
-            }
+            //foreach($resultsCards as $result) {
+            //    $data['cards'][] = $result->getJSON();
+            //}
     
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
             return $response;
@@ -160,25 +160,25 @@ class APIUserController extends AbstractController
      * @Route("/api/user/{userId}/spinplays", name="api.users.detail.spinplays")
      * @Route("/api/user/{userId}/spinplays/")
      */
-    public function userDetailSpinPlays(Request $request, int $userId)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $data = [];
+    // public function userDetailSpinPlays(Request $request, int $userId)
+    // {
+    //     $em = $this->getDoctrine()->getManager();
+    //     $data = [];
 
-        $result = $em->getRepository(User::class)->findOneBy(array('id' => $userId));
+    //     $result = $em->getRepository(User::class)->findOneBy(array('id' => $userId));
 
-        if(!$result) {
-            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
-            return $response;
-        } else {
-            $resultsSpinPlays = $em->getRepository(SongSpinPlay::class)->findBy(array('user' => $result->getId(), 'isActive' => true), array('submitDate' => 'DESC'));
+    //     if(!$result) {
+    //         $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
+    //         return $response;
+    //     } else {
+    //         $resultsSpinPlays = $em->getRepository(SongSpinPlay::class)->findBy(array('user' => $result->getId(), 'isActive' => true), array('submitDate' => 'DESC'));
                  
-            foreach($resultsSpinPlays as $result) {
-                $data[] = $result->getJSON();
-            }
+    //         foreach($resultsSpinPlays as $result) {
+    //             $data[] = $result->getJSON();
+    //         }
     
-            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
-            return $response;
-        }
-    }
+    //         $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+    //         return $response;
+    //     }
+    // }
 }

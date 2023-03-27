@@ -44,7 +44,7 @@ class UserNotification
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Card")
      */
-    private $connectedCard;
+    //private $connectedCard;
 
     public function getId(): ?int
     {
@@ -111,17 +111,17 @@ class UserNotification
         return $this;
     }
 
-    public function getConnectedCard(): ?Card
-    {
-        return $this->connectedCard;
-    }
+    // public function getConnectedCard(): ?Card
+    // {
+    //     return $this->connectedCard;
+    // }
 
-    public function setConnectedCard(?Card $connectedCard): self
-    {
-        $this->connectedCard = $connectedCard;
+    // public function setConnectedCard(?Card $connectedCard): self
+    // {
+    //     $this->connectedCard = $connectedCard;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getJSON() {
         return array(
@@ -131,7 +131,7 @@ class UserNotification
             'notificationData' => $this->notificationData,
             'connectedSong' => $this->connectedSong != null ? $this->connectedSong->getJSON() : null,
             'connectedUser' => $this->connectedUser != null ? $this->connectedUser->getJSON() : null,
-            'connectedCard' => $this->connectedCard != null ? $this->connectedCard->getJSON() : null
+            // 'connectedCard' => $this->connectedCard != null ? $this->connectedCard->getJSON() : null
         );
     }
 }

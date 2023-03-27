@@ -19,10 +19,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use App\Entity\Song;
 use App\Entity\SongReview;
-use App\Entity\SongSpinPlay;
 use App\Utils\HelperFunctions;
 use App\Entity\User;
 use App\Entity\UserNotification;
+
+//use App\Entity\SongSpinPlay;
 
 class SongController extends AbstractController
 {
@@ -51,14 +52,14 @@ class SongController extends AbstractController
         if(!$resultUploader) throw new NotFoundHttpException();
 
         $resultReviews = $em->getRepository(SongReview::class)->findBy(array('song' => $resultSong), array('reviewDate' => 'DESC'));
-        $resultSpinPlay = $em->getRepository(SongSpinPlay::class)->findBy(array('song' => $resultSong, 'isActive' => true), array('submitDate' => 'DESC'));
+        //$resultSpinPlay = $em->getRepository(SongSpinPlay::class)->findBy(array('song' => $resultSong, 'isActive' => true), array('submitDate' => 'DESC'));
 
         $resultReviewAverage = $em->getRepository(SongReview::class)->getAverageByID($songId);
 
         $data['song'] = $resultSong;
         $data['uploader'] = $resultUploader;
         $data['reviews'] = $resultReviews;
-        $data['spinplays'] = $resultSpinPlay;
+        //$data['spinplays'] = $resultSpinPlay;
         $data['reviewAverage'] = $resultReviewAverage;
         $data['activeTab'] = $request->query->get('tab') ? $request->query->get('tab') : 'reviews';
         $data['activeAction'] = $request->query->get('action');
@@ -117,28 +118,28 @@ class SongController extends AbstractController
                 }
             }
 
-            if($request->request->get('submitSpinPlay') && !empty($request->request->get('spinPlayUrl'))) {
-                $newSpinPlay = new SongSpinPlay();
-                $newSpinPlay->setUser($this->getUser());
-                $newSpinPlay->setVideoUrl($request->request->get('spinPlayUrl'));
-                $newSpinPlay->setSong($resultSong);
-                $newSpinPlay->setSubmitDate(new \DateTime('NOW'));
-                $newSpinPlay->setIsActive(true);
+            // if($request->request->get('submitSpinPlay') && !empty($request->request->get('spinPlayUrl'))) {
+            //     $newSpinPlay = new SongSpinPlay();
+            //     $newSpinPlay->setUser($this->getUser());
+            //     $newSpinPlay->setVideoUrl($request->request->get('spinPlayUrl'));
+            //     $newSpinPlay->setSong($resultSong);
+            //     $newSpinPlay->setSubmitDate(new \DateTime('NOW'));
+            //     $newSpinPlay->setIsActive(true);
 
-                $em->persist($newSpinPlay);
-                $em->flush();
+            //     $em->persist($newSpinPlay);
+            //     $em->flush();
    
-                $newNotification = new UserNotification();
-                $newNotification->setUser($resultUploader);
-                $newNotification->setConnectedUser($this->getUser());
-                $newNotification->setConnectedSong($resultSong);
-                $newNotification->setNotificationType(2);
-                $newNotification->setNotificationData($newSpinPlay->getID());
-                $em->persist($newNotification);
-                $em->flush();
+            //     $newNotification = new UserNotification();
+            //     $newNotification->setUser($resultUploader);
+            //     $newNotification->setConnectedUser($this->getUser());
+            //     $newNotification->setConnectedSong($resultSong);
+            //     $newNotification->setNotificationType(2);
+            //     $newNotification->setNotificationData($newSpinPlay->getID());
+            //     $em->persist($newNotification);
+            //     $em->flush();
 
-                return $this->redirectToRoute('song.detail', ['songId' => $resultSong->getId(), 'tab' => 'spinplays']);
-            }
+            //     return $this->redirectToRoute('song.detail', ['songId' => $resultSong->getId(), 'tab' => 'spinplays']);
+            // }
         } else {
             $data['userReview'] = false;
         }
@@ -566,31 +567,31 @@ class SongController extends AbstractController
     /**
      * @Route("/song/{songId}/spinplay/{spinplayId}/delete", name="song.spinplay.delete")
      */
-    public function songSpinplayDelete(Request $request, int $songId, int $spinplayId)
-    {
-        $user = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
-        $data = [];
+    // public function songSpinplayDelete(Request $request, int $songId, int $spinplayId)
+    // {
+    //     $user = $this->getUser();
+    //     $em = $this->getDoctrine()->getManager();
+    //     $data = [];
 
-        $resultSpinplay = $em->getRepository(SongSpinplay::class)->findOneBy(array('id' => $spinplayId));
+    //     $resultSpinplay = $em->getRepository(SongSpinplay::class)->findOneBy(array('id' => $spinplayId));
         
-        if(!$resultSpinplay) {
-            return $this->redirectToRoute('song.detail', ['songId' => $songId, 'tab' => 'spinplays']);
-        } else {
-            // TODO
-            $userRoles = $this->getUser()->getRoles();
-            $allowedRoles = ["ROLE_ADMIN", "ROLE_SUPERADMIN", "ROLE_MODERATOR"];
+    //     if(!$resultSpinplay) {
+    //         return $this->redirectToRoute('song.detail', ['songId' => $songId, 'tab' => 'spinplays']);
+    //     } else {
+    //         // TODO
+    //         $userRoles = $this->getUser()->getRoles();
+    //         $allowedRoles = ["ROLE_ADMIN", "ROLE_SUPERADMIN", "ROLE_MODERATOR"];
 
-            // Check if allowed to remove
-            if(count(array_intersect($allowedRoles, $userRoles)) > 0 || $resultSpinplay->getUser() == $this->getUser() || $resultSpinPlay->getSong()->getUploader() == $this->getUser()) {
-                $em->remove($resultSpinplay);
-                $em->flush();
-            }
+    //         // Check if allowed to remove
+    //         if(count(array_intersect($allowedRoles, $userRoles)) > 0 || $resultSpinplay->getUser() == $this->getUser() || $resultSpinPlay->getSong()->getUploader() == $this->getUser()) {
+    //             $em->remove($resultSpinplay);
+    //             $em->flush();
+    //         }
 
-            // Redirect
-            return $this->redirectToRoute('song.detail', ['songId' => $songId, 'tab' => 'spinplays']);
-        }
-    }
+    //         // Redirect
+    //         return $this->redirectToRoute('song.detail', ['songId' => $songId, 'tab' => 'spinplays']);
+    //     }
+    // }
 
     /**
      * @Route("/song/{songId}/review/{reviewId}/delete", name="song.review.delete")

@@ -79,8 +79,8 @@
                           <div class="notification-icon">
                             {% if notification.notificationType == 0 %}
                               <i class="mdi mdi-server"></i>
-                            {% elseif notification.notificationType == 3 %}
-                              <div class="cover" style="background-image: url({{ asset("uploads/card/" ~ notification.connectedCard.icon) }});"></div>
+                            {# {% elseif notification.notificationType == 3 %}
+                              <div class="cover" style="background-image: url({{ asset("uploads/card/" ~ notification.connectedCard.icon) }});"></div> #}
                             {% else %}
                               <div class="cover" style="background-image: url({{ asset("uploads/thumbnail/" ~ notification.connectedSong.fileReference ~ ".jpg?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});"></div>
                             {% endif %}
@@ -90,11 +90,11 @@
                             {{ notification.notificationData }}
                           {% elseif notification.notificationType == 1 %}
                             <strong>{{ notification.connectedUser.username }}</strong> reviewed your chart <strong>{{ notification.connectedSong.title }}</strong>.
-                          {% elseif notification.notificationType == 2 %}
-                            <strong>{{ notification.connectedUser.username }}</strong> added a SpinPlay to your chart <strong>{{ notification.connectedSong.title }}</strong>.
-                          {% elseif notification.notificationType == 3 %}
-                            You've received the profile card <strong>{{ notification.connectedCard.title }}</strong>.
-                          {% endif %}
+                          {# {% elseif notification.notificationType == 2 %}
+                            <strong>{{ notification.connectedUser.username }}</strong> added a SpinPlay to your chart <strong>{{ notification.connectedSong.title }}</strong>. #}
+                          {# {% elseif notification.notificationType == 3 %}
+                            You've received the profile card <strong>{{ notification.connectedCard.title }}</strong>.#}
+                          {% endif %} 
                           </div>
                         </a>
                       {% endfor %}
@@ -116,10 +116,10 @@
                       <i class="mdi mdi-thumbs-up-down"></i>
                       <span>My Reviews</span>
                     </a>
-                    <a href="{{ path('user.detail', {userId: app.user.id, area: "spinplays"}) }}" class="user-action-item">
+                    <!--a href="{{ path('user.detail', {userId: app.user.id, area: "spinplays"}) }}" class="user-action-item">
                       <i class="mdi mdi-youtube"></i>
                       <span>My SpinPlays</span>
-                    </a>
+                    </a-->
                     <a href="{{ path('user.settings') }}" class="user-action-item">
                       <i class="mdi mdi-cog"></i>
                       <span>Settings</span>

@@ -44,7 +44,7 @@
         /**
          * @ORM\OneToMany(targetEntity="App\Entity\SongSpinPlay", mappedBy="user")
          */
-        private $spinPlays;
+        //private $spinPlays;
 
         /**
          * @ORM\Column(type="string", length=6, nullable=true)
@@ -69,7 +69,7 @@
         /**
          * @ORM\OneToMany(targetEntity="App\Entity\UserCard", mappedBy="user")
          */
-        private $userCards;
+        //private $userCards;
 
         /**
          * @ORM\OneToMany(targetEntity="App\Entity\SongPlaylist", mappedBy="user")
@@ -85,12 +85,12 @@
         {
             parent::__construct();
             $this->reviews = new ArrayCollection();
-            $this->spinPlays = new ArrayCollection();
+            //$this->spinPlays = new ArrayCollection();
             // your own logic
 
             $this->connections = new ArrayCollection();
             $this->userNotifications = new ArrayCollection();
-            $this->userCards = new ArrayCollection();
+            //$this->userCards = new ArrayCollection();
             $this->songPlaylists = new ArrayCollection();
         }
 
@@ -164,30 +164,30 @@
         /**
          * @return Collection|SongSpinPlay[]
          */
-        public function getSpinPlays(): Collection
-        {
-            return $this->spinPlays;
-        }
+        // public function getSpinPlays(): Collection
+        // {
+        //     return $this->spinPlays;
+        // }
 
-        public function addSpinPlay(SongSpinPlay $spinPlay): self
-        {
-            if (!$this->spinPlays->contains($spinPlay)) {
-                $this->spinPlays[] = $spinPlay;
-                $spinPlay->addUser($this);
-            }
+        // public function addSpinPlay(SongSpinPlay $spinPlay): self
+        // {
+        //     if (!$this->spinPlays->contains($spinPlay)) {
+        //         $this->spinPlays[] = $spinPlay;
+        //         $spinPlay->addUser($this);
+        //     }
 
-            return $this;
-        }
+        //     return $this;
+        // }
 
-        public function removeSpinPlay(SongSpinPlay $spinPlay): self
-        {
-            if ($this->spinPlays->contains($spinPlay)) {
-                $this->spinPlays->removeElement($spinPlay);
-                $spinPlay->removeUser($this);
-            }
+        // public function removeSpinPlay(SongSpinPlay $spinPlay): self
+        // {
+        //     if ($this->spinPlays->contains($spinPlay)) {
+        //         $this->spinPlays->removeElement($spinPlay);
+        //         $spinPlay->removeUser($this);
+        //     }
 
-            return $this;
-        }
+        //     return $this;
+        // }
 
         public function getJSON() {
             return array(
@@ -289,33 +289,33 @@
         /**
          * @return Collection|UserCard[]
          */
-        public function getUserCards(): Collection
-        {
-            return $this->userCards;
-        }
+        // public function getUserCards(): Collection
+        // {
+        //     return $this->userCards;
+        // }
 
-        public function addUserCard(UserCard $userCard): self
-        {
-            if (!$this->userCards->contains($userCard)) {
-                $this->userCards[] = $userCard;
-                $userCard->setUser($this);
-            }
+        // public function addUserCard(UserCard $userCard): self
+        // {
+        //     if (!$this->userCards->contains($userCard)) {
+        //         $this->userCards[] = $userCard;
+        //         $userCard->setUser($this);
+        //     }
 
-            return $this;
-        }
+        //     return $this;
+        // }
 
-        public function removeUserCard(UserCard $userCard): self
-        {
-            if ($this->userCards->contains($userCard)) {
-                $this->userCards->removeElement($userCard);
-                // set the owning side to null (unless already changed)
-                if ($userCard->getUser() === $this) {
-                    $userCard->setUser(null);
-                }
-            }
+        // public function removeUserCard(UserCard $userCard): self
+        // {
+        //     if ($this->userCards->contains($userCard)) {
+        //         $this->userCards->removeElement($userCard);
+        //         // set the owning side to null (unless already changed)
+        //         if ($userCard->getUser() === $this) {
+        //             $userCard->setUser(null);
+        //         }
+        //     }
 
-            return $this;
-        }
+        //     return $this;
+        // }
 
         /**
          * @return Collection|SongPlaylist[]

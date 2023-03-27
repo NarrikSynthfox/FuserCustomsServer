@@ -13,7 +13,7 @@ use Symfony\Component\HttpClient\HttpClient;
 use App\Entity\ClientRelease;
 use App\Entity\Song;
 use App\Entity\SongReview;
-use App\Entity\SongSpinPlay;
+//use App\Entity\SongSpinPlay;
 use App\Entity\User;
 use App\Entity\Promo;
 
@@ -106,34 +106,34 @@ class APISongController extends AbstractController
      * @Route("/api/song/{idOrReference}/spinplays", name="api.songs.detail.spinplays")
      * @Route("/api/song/{idOrReference}/spinplays/")
      */
-    public function songDetailSpinPlays(Request $request, $idOrReference)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $data = [];
+    // public function songDetailSpinPlays(Request $request, $idOrReference)
+    // {
+    //     $em = $this->getDoctrine()->getManager();
+    //     $data = [];
 
-        if(is_numeric($idOrReference)) {
-            // $idOrReference is the ID
-            $resultSong = $em->getRepository(Song::class)->findOneBy(array('id' => $idOrReference));
-        } else {
-            // $idOrReference is the file Reference
-            $resultSong = $em->getRepository(Song::class)->findOneBy(array('fileReference' => $idOrReference));
-        }
-        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+    //     if(is_numeric($idOrReference)) {
+    //         // $idOrReference is the ID
+    //         $resultSong = $em->getRepository(Song::class)->findOneBy(array('id' => $idOrReference));
+    //     } else {
+    //         // $idOrReference is the file Reference
+    //         $resultSong = $em->getRepository(Song::class)->findOneBy(array('fileReference' => $idOrReference));
+    //     }
+    //     $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
-        if(!$resultSong) {
-            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
-            return $response;
-        } else {
-            $resultSpinPlays = $em->getRepository(SongSpinPlay::class)->findBy(array('song' => $resultSong, 'isActive' => true), array('submitDate' => 'DESC'));
+    //     if(!$resultSong) {
+    //         $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
+    //         return $response;
+    //     } else {
+    //         $resultSpinPlays = $em->getRepository(SongSpinPlay::class)->findBy(array('song' => $resultSong, 'isActive' => true), array('submitDate' => 'DESC'));
 
-            foreach($resultSpinPlays as $spinPlay) {
-                $data['spinPlays'][] = $spinPlay->getJSON();
-            }
+    //         foreach($resultSpinPlays as $spinPlay) {
+    //             $data['spinPlays'][] = $spinPlay->getJSON();
+    //         }
     
-            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
-            return $response;
-        }
-    }
+    //         $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+    //         return $response;
+    //     }
+    // }
 
     /**
      * @Route("/api/song/{id}/download", name="api.songs.download")

@@ -166,7 +166,7 @@
         <div class="song-social">
             <div class="tab-header">
                 <a href="{{ path('song.detail', {songId: song.id, tab: 'reviews'}) }}" class="tab-header-item tab-header-item-reviews {{ activeTab == 'reviews' ? 'active' : '' }}">Reviews</a>
-                <a href="{{ path('song.detail', {songId: song.id, tab: 'spinplays'}) }}" class="tab-header-item tab-header-item-spinplays {{ activeTab == 'spinplays' ? 'active' : '' }}">SpinPlays</a>
+                <!--a href="{{ path('song.detail', {songId: song.id, tab: 'spinplays'}) }}" class="tab-header-item tab-header-item-spinplays {{ activeTab == 'spinplays' ? 'active' : '' }}">SpinPlays</a-->
             </div>
             {% if activeTab == 'reviews' %}
                 <div class="tab tab-reviews">
@@ -260,7 +260,7 @@
                     {% endif %}
                 </div>
             {% else %}
-                <div class="tab tab-spinplays">
+                <!--div class="tab tab-spinplays">
                     {% if activeAction == '' %}
                         <div class="spinplay-overview">
                             <div class="icon">
@@ -318,7 +318,7 @@
                             </form>
                         {% endif %}
                     {% endif %}
-                </div>
+                </div-->
             {% endif %}
         </div>
     </section>

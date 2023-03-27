@@ -147,7 +147,7 @@ class Song
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\SongSpinPlay", mappedBy="song", orphanRemoval=true)
      */
-    private $spinPlays;
+    //private $spinPlays;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\SongPlaylist", mappedBy="songs")
@@ -162,7 +162,7 @@ class Song
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
-        $this->spinPlays = new ArrayCollection();
+        //$this->spinPlays = new ArrayCollection();
         $this->songPlaylists = new ArrayCollection();
     }
 
@@ -518,33 +518,33 @@ class Song
     /**
      * @return Collection|SongSpinPlay[]
      */
-    public function getSpinPlays(): Collection
-    {
-        return $this->spinPlays;
-    }
+    // public function getSpinPlays(): Collection
+    // {
+    //     return $this->spinPlays;
+    // }
 
-    public function addSpinPlay(SongSpinPlay $spinPlay): self
-    {
-        if (!$this->spinPlays->contains($spinPlay)) {
-            $this->spinPlays[] = $spinPlay;
-            $spinPlay->setSong($this);
-        }
+    // public function addSpinPlay(SongSpinPlay $spinPlay): self
+    // {
+    //     if (!$this->spinPlays->contains($spinPlay)) {
+    //         $this->spinPlays[] = $spinPlay;
+    //         $spinPlay->setSong($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeSpinPlay(SongSpinPlay $spinPlay): self
-    {
-        if ($this->spinPlays->contains($spinPlay)) {
-            $this->spinPlays->removeElement($spinPlay);
-            // set the owning side to null (unless already changed)
-            if ($spinPlay->getSong() === $this) {
-                $spinPlay->setSong(null);
-            }
-        }
+    // public function removeSpinPlay(SongSpinPlay $spinPlay): self
+    // {
+    //     if ($this->spinPlays->contains($spinPlay)) {
+    //         $this->spinPlays->removeElement($spinPlay);
+    //         // set the owning side to null (unless already changed)
+    //         if ($spinPlay->getSong() === $this) {
+    //             $spinPlay->setSong(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getJSON() {
         return array(

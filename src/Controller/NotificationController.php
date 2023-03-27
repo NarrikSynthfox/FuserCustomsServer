@@ -38,14 +38,10 @@ class NotificationController extends AbstractController
                     // Review
                     return $this->redirectToRoute('song.detail', ['songId' => $notificationToClear->getConnectedSong()->getId(), 'tab' => 'reviews']);
                 break;
-                case 2:
-                    // SpinPlay
-                    return $this->redirectToRoute('song.detail', ['songId' => $notificationToClear->getConnectedSong()->getId(), 'tab' => 'spinplays']);
-                break;
-                case 3:
-                    // Card
-                    return $this->redirectToRoute('user.detail', ['userId' => $notificationToClear->getConnectedUser()->getId()]);
-                break;
+                // case 3:
+                //     // Card
+                //     return $this->redirectToRoute('user.detail', ['userId' => $notificationToClear->getConnectedUser()->getId()]);
+                // break;
             }
         } else {
             $returnUrl = $request->query->get('returnUrl');

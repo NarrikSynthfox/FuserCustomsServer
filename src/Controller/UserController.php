@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Entity\User;
 use App\Entity\Song;
 use App\Entity\SongReview;
-use App\Entity\SongSpinPlay;
+//use App\Entity\SongSpinPlay;
 
 class UserController extends AbstractController
 {
@@ -61,14 +61,14 @@ class UserController extends AbstractController
 
         $resultPlaylists = $em->getRepository(SongPlaylist::class)->findBy(array('user' => $resultUser->getId()), array('id' => 'DESC'));
         $resultReviews = $em->getRepository(SongReview::class)->findBy(array('user' => $resultUser->getId()), array('reviewDate' => 'DESC'));
-        $resultSpinPlays = $em->getRepository(SongSpinPlay::class)->findBy(array('isActive' => true, 'user' => $resultUser->getId()), array('submitDate' => 'DESC'));
+        //$resultSpinPlays = $em->getRepository(SongSpinPlay::class)->findBy(array('isActive' => true, 'user' => $resultUser->getId()), array('submitDate' => 'DESC'));
 
         $data['user'] = $resultUser;
         $data['area'] = $area;
         $data['charts'] = $resultCharts;
         $data['playlists'] = $resultPlaylists;
         $data['reviews'] = $resultReviews;
-        $data['spinPlays'] = $resultSpinPlays;
+        //$data['spinPlays'] = $resultSpinPlays;
 
         switch($area) {
             case "charts":
@@ -77,8 +77,8 @@ class UserController extends AbstractController
                 return $this->render('user/detail-playlists.html.twig', $data);
             case "reviews":
                 return $this->render('user/detail-reviews.html.twig', $data);
-            case "spinplays":
-                return $this->render('user/detail-spinplays.html.twig', $data);
+            // case "spinplays":
+            //     return $this->render('user/detail-spinplays.html.twig', $data);
         }
 
         return null;
